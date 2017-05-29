@@ -106,6 +106,25 @@ public class Alumno {
         }
     
     }
+    
+    public void bajaAlumno(ConexionBD bd) throws Exception {
+        PreparedStatement pst = null;
+        String sql;
+        try {
+            sql = "DELETE FROM Alumnos WHERE IDCURSO = ? AND DNI = ?";
+            pst = bd.getConn().prepareStatement(sql);
+            pst.setInt(1, idCurso);
+            pst.setString(2, dni);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("bajaAlumno()!", e);
+        } finally {
+            try {
+                if (pst!=null) pst.close();
+            } catch (SQLException e) {
+            }
+        }
+    }
 
     public static void listadoAlumnos(ConexionBD bd, List<Alumno> t) throws Exception {
         PreparedStatement pst = null;
