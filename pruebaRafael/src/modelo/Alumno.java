@@ -107,28 +107,6 @@ public class Alumno {
     
     }
 
-    public void bajaAlumno(ConexionBD bd) throws Exception {
-        PreparedStatement pst = null;
-        String sql;
-        if (!existeAlumno(bd)) {
-            throw new Exception ("El alumno no existe!");
-        }
-        try {
-            sql = "DELETE FROM Alumnos WHERE DNI = ?";
-            pst = bd.getConn().prepareStatement(sql);
-            pst.setString(2,this.dni);
-            pst.executeUpdate();            
-        } catch (SQLException e) {
-            throw new Exception ("Error! bajaAlumno()",e);
-        } finally {
-            try {
-                if (pst!=null) pst.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public static void listadoAlumnos(ConexionBD bd, List<Alumno> t) throws Exception {
         PreparedStatement pst = null;
         ResultSet rs = null;
